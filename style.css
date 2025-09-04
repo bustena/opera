@@ -10,7 +10,7 @@ body{
   font-family:'Quicksand',sans-serif;
   text-align:center;
   margin:0;
-  background:#dcdcdc;
+  background:#faf7f0;
   transition:background-color 1s ease;
   /* espacio para la barra fija inferior */
   padding-bottom: 84px;
