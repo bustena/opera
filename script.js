@@ -8,18 +8,18 @@ let puntos = 0, racha = 0, rachaMax = 0;
 
 /* =================== CSV URLs =================== */
 const OBRAS_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrioQKwGSHMHsy9dQr37uk1xCFZC8vhIKDXepOtNEM_efmPwpe5ROmksO0fu_ZmHlxPUskuXu4rmCw/pub?gid=0&single=true&output=csv";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrioQKwGSHMHsy9dQr37uk1xCFZC8vhIKDXepOtNEM_efmPwpe5ROmksO0fu_ZmHlxPUskuXu4rmCw/pub?gid=1964215563&single=true&output=csv";
 
 const PERIODOS_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrioQKwGSHMHsy9dQr37uk1xCFZC8vhIKDXepOtNEM_efmPwpe5ROmksO0fu_ZmHlxPUskuXu4rmCw/pub?gid=7579083&single=true&output=csv";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrioQKwGSHMHsy9dQr37uk1xCFZC8vhIKDXepOtNEM_efmPwpe5ROmksO0fu_ZmHlxPUskuXu4rmCw/pub?gid=1880342854&single=true&output=csv";
 
 /* ===== Fallback PERIODOS (si P_sacra fallase) ===== */
 let PERIODOS = [
-  { hex: "#5ca8d6", label: "Edad Media y Renacimiento (-1500)", desc: "Canto llano, polifonías primitivas, ars antiqua, ars nova y escuela flamenca.", orden: 1 },
-  { hex: "#f9c623", label: "Renacimiento y Barroco temprano (1500-1640)", desc: "Edad de Oro de la polifonía. Desde Josquin hasta la escuela policoral de Venecia", orden: 2 },
-  { hex: "#e06464", label: "Barroco tardío (1640-1750)", desc: "La era del bajo continuo y de los primeros desarrollos de la música orquestal.", orden: 3 },
-  { hex: "#26b98f", label: "Periodo clásico-romántico (1750-1920)", desc: "Desde Mozart hasta Lili Boulanger. Edad de Oro de la música orquestal. La música sacra como música de concierto.", orden: 4 },
-  { hex: "#c87ab0", label: "Siglos XX y XXI (1920-)", desc: "Desde Francis Poulenc hasta nuestros días. Amplio rango estilístico, desde la inspiración popular a la vanguardia.", orden: 5 }
+  { hex: "#5ca8d6", label: "Siglo XVII", desc: "Desde Monteverdi a Purcell.", orden: 1 },
+  { hex: "#f9c623", label: "Siglo XVIII", desc: "Desde Scarlatti hasta Cimarosa", orden: 2 },
+  { hex: "#e06464", label: "Siglo XIX (hasta 1850)", desc: "Desde Beethoven hasta los primeros Verdi y Wagner.", orden: 3 },
+  { hex: "#26b98f", label: "Siglo XIX (desde 1850 hasta 1918)", desc: "La Edad de Oro de la ópera.", orden: 4 },
+  { hex: "#c87ab0", label: "Siglos XX y XXI (1918-)", desc: "Teatro musical y ópera de vanguardia.", orden: 5 }
 ];
 
 /* =================== Boot =================== */
