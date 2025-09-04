@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { overflow-x: hidden; }
+
+body{
+  font-family:'Quicksand',sans-serif;
+  text-align:center;
+  margin:0;
+  background:#dcdcdc;
+  transition:background-color 1s ease;
+  /* espacio para la barra fija inferior */
+  padding-bottom: 84px;
+}
+
+/* ================= CABECERA ================= */
+header{padding:1em;}
+header .header-link{display:inline-flex;align-items:center;gap:.6em;text-decoration:none;color:inherit;}
+.logo-icon{width:36px;height:36px;}
+.titulo-principal{font-size:1.5em;font-weight:600;margin:0;}
+
+.hidden{display:none;}
+
+/* ================= PANTALLAS / BARRA SUPERIOR ================= */
+#contenido,#menuModos,#cargando{padding:2em 1em;}
+.cuarteto-numero{font-size:2em;font-weight:700;margin:0;}
+
+.barra-superior,
+#leyenda,
+.ficha-contenido,
+#audio-container {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.barra-superior{
+  display:flex;align-items:center;justify-content:center;gap:.75em;
+  position: relative;
+}
+.marcadores{
+  font-weight:600;
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+}
+
+.feedback{
+  min-height:1.6em;margin:.3em auto 0;max-width:700px;font-weight:700;color:#000;
+}
+
+#detalles{min-height:4em;transition:opacity .3s ease;}
+.invisible{opacity:0;visibility:hidden;}
+
+/* ================= BOTONES GENERALES ================= */
+button{
+  padding:.8em 1.5em;margin:.5em;font-size:1em;border:none;border-radius:10px;
+  background:#222;color:#fff;font-weight:600;box-shadow:2px 2px 6px rgba(0,0,0,.2);
+  cursor:pointer;transition:background-color .2s ease;
+}
+button:hover{background:#444;}
+
+/* ================= AUDIO ================= */
+#audio-container{
+  margin:1em auto 3.5em; /* más aire por la barra fija */
+  width:95%;max-width:500px;transition:all .5s ease;
+}
+.custom-audio-controls{display:flex;justify-content:center;align-items:center;gap:1em;margin-top:.5em;}
+.audio-btn{background:#222;border:none;border-radius:10px;padding:.6em;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s;box-shadow:2px 2px 6px rgba(0,0,0,.2);}
+.audio-btn:hover{background:#444;}
+.audio-btn svg{width:28px;height:28px;stroke:#fff;}
+
+/* ================= NAVEGACIÓN ================= */
+#botones{display:none;justify-content:center;gap:1em;flex-wrap:wrap;}
+#botonSolucion{margin-top:1.2em;}
+#reinicio{margin-top:1.5em;}
+
+/* ================= BOTÓN FIJO ================= */
+#boton-reglas-global{
+  position:fixed;bottom:0;left:0;width:100%;text-align:center;background:#555;color:#fff;
+  padding:1em;font-weight:600;cursor:pointer;z-index:1000;border-top:2px solid #222;transition:background-color .3s;
+}
+#boton-reglas-global:hover{background:#333;}
+
+/* =========================================================
+   FICHA (imagen + texto)
+   ========================================================= */
+.ficha-detalle{margin:1.5em auto;padding:1.5em;border-radius:14px;display:flex;justify-content:center;width:100%;transition:opacity .3s;}
+.ficha-contenido{display:flex;gap:1.5em;width:100%;align-items:center;justify-content:center;}
+.ficha-imagen{flex:0 0 40%;display:flex;justify-content:flex-end;}
+.ficha-imagen img{display:block;max-height:220px;width:auto;border-radius:8px;box-shadow:none;}
+.ficha-texto{flex:0 0 60%;display:flex;flex-direction:column;justify-content:center;text-align:left;gap:.4em;}
+.ficha-texto .anio{font-size:2.2em;font-weight:700;margin-bottom:.2em;}
+#descripcion{font-size:1.1rem;line-height:1.5;}
+#descripcion strong{font-weight:700;}
+#texto-extra{
+  font-size:1rem;line-height:1.6;margin-top:.5em;color:#222;
+  max-width:700px;margin-left:auto;margin-right:auto;
+}
+/* textos largos robustos */
+#descripcion, #texto-extra{overflow-wrap:anywhere;word-break:break-word;}
+
+/* =========================================================
+   LEYENDA (5 filas + info por fila)
+   ========================================================= */
+#leyenda{
+  display:flex;flex-direction:column;align-items:center; /* centrado estable */
+  gap:.6em;
+  width:100%;
+  margin:1.5em auto;
+  text-align:left;
+}
+.leyenda-row{width:100%;}
+#leyenda .leyenda-item{
+  display:flex;align-items:center;justify-content:flex-start;gap:.6em;width:100%;
+  position:relative;padding:.6em 3.2em .6em 1em;border-radius:8px;background:#222;color:#fff;text-align:left;
+}
+#leyenda .leyenda-item:hover{background:#444;}
+.leyenda-item .punto{width:14px;height:14px;border-radius:50%;display:inline-block;margin-right:14px;}
+.info-btn{position:absolute;right:.6em;top:50%;transform:translateY(-50%);background:#000;color:#fff;border:none;border-radius:8px;padding:.2em .5em;font-weight:700;cursor:pointer;}
+.info-btn:hover{background:#111;}
+.info-panel{
+  max-width:100%;padding:.7em 1em;border-radius:8px;background:rgba(255,255,255,.9);color:#222;margin:.4em 0 .2em 0;text-align:left;box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+/* Modo Mesa: leyenda como lista plana */
+#leyenda.modo-mesa .leyenda-item{
+  background:transparent !important;color:inherit !important;border:0 !important;
+  box-shadow:none !important;padding:.2em 2.6em .2em 0 !important;border-radius:0 !important;cursor:default !important;
+}
+#leyenda.modo-mesa .leyenda-item:hover{background:transparent !important;}
+#leyenda.modo-mesa .info-btn{background:#666;}
+
+/* Feedback visual (Solitario) */
+.is-correct{border:2px solid #1a7f37;}
+.is-wrong  {border:2px solid #b4232d;}
+
+/* =========================================================
+   PISTA (centrada antes y después de abrir)
+   ========================================================= */
+#pista-wrap{
+  align-self: center; /* evita estirarse al 100% cuando #leyenda estira hijos */
+  width: auto;
+
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.8em;margin:1em 0;
+}
+#btnPista{
+  padding:.6em 1.2em;font-size:1em;border:none;border-radius:10px;background:#444;color:#fff;font-weight:600;
+  box-shadow:2px 2px 6px rgba(0,0,0,.2);cursor:pointer;transition:background-color .2s ease;
+  margin:0 auto;display:inline-block;
+}
+#btnPista:hover{background:#666;}
+#pistaBox{
+  align-self:center;
+  max-width:700px;margin-top:.8em;padding:.8em 1.2em;border-radius:8px;background:rgba(255,255,255,.85);
+  font-size:.95rem;line-height:1.5;color:#222;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:2000;}
+.modal.hidden{display:none;}
+.modal-dialog{width:min(680px,92vw);background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:1em 1.1em;border-bottom:1px solid #eee;}
+.modal-close{background:#222;color:#fff;border:none;border-radius:8px;padding:.4em .6em;cursor:pointer;}
+.modal-close:hover{background:#444;}
+.modal-body{display:flex;gap:1em;padding:1em 1.1em 1.2em;text-align:left;align-items:flex-start;}
+.modal-color{width:20px;height:20px;border-radius:50%;margin-top:.25em;flex:0 0 auto;}
+.modal-texto{flex:1;}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width:700px){
+  /* 1) Cabecera: evita solape Obra N ↔ Marcadores */
+  .barra-superior{
+    flex-direction: column;
+    gap: .25em;
+  }
+  .marcadores{
+    position: static;
+    transform: none;
+    align-self: center;
+    font-size: .95em;
+  }
+
+  /* 2) Ficha: layout vertical y sin imagen */
+  .ficha-contenido{flex-direction:column;align-items:center;text-align:center;}
+  .ficha-imagen{display:none;}
+  .ficha-texto{
+    flex:1 1 auto;
+    text-align:center;
+    padding-top:.5em;
+  }
+
+  /* 3) Leyenda: centrada (ya lo está en base); solo ajustamos contenido */
+  #leyenda .leyenda-item{justify-content:center;padding-right:2.6em;}
+
+  /* 4) Pista */
+  #pistaBox{text-align:center;}
+
+  /* 5) Más aire por barra fija y dedos */
+  #audio-container{margin:1em auto 4.25em;}
+  body{padding-bottom:100px;}
+
+  /* Medios fluidos en móvil */
+  img, video, canvas, svg { max-width:100%; height:auto; }
+
+  /* Evitar desbordes */
+  #leyenda, .leyenda-row, #leyenda .leyenda-item { width:100%; max-width:100%; }
+}

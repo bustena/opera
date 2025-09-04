@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HM Sacra</title>
+  <link rel="icon" href="https://bustena.wordpress.com/wp-content/uploads/2025/08/logos_app.png"/>
+
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+<header>
+  <a href="https://bustena.wordpress.com/" target="_blank" class="header-link">
+    <img class="logo-icon" src="https://bustena.wordpress.com/wp-content/uploads/2023/02/cropped-icon-piano.png" alt="Icono"/>
+    <span class="titulo-principal">Historia de la música sacra</span>
+  </a>
+</header>
+
+<div id="cargando"><p><strong>Cargando datos...</strong></p></div>
+
+<!-- Menú de modos -->
+<div id="menuModos" class="hidden">
+  <p><strong>Elige modo</strong></p>
+  <div>
+    <button onclick="seleccionarModo('solitario')">🧩 Solitario</button>
+    <button onclick="seleccionarModo('mesa')">🎲 Juego de mesa</button>
+  </div>
+</div>
+
+<!-- Contenido principal -->
+<div id="contenido" class="hidden">
+  <!-- Cabecera de juego: título + marcadores -->
+  <div class="barra-superior">
+    <div id="titulo" class="cuarteto-numero">Obra</div>
+    <div id="marcadores" aria-live="polite" class="marcadores">
+      <span>Puntos: <span id="puntos">0</span></span> •
+      <span>Racha: <span id="racha">0</span></span> (<span id="rachaMax">0</span>)
+    </div>
+  </div>
+
+  <!-- Feedback de acierto/fallo -->
+  <div id="feedback" class="feedback"></div>
+
+  <!-- Contenedor común: leyenda (botones) y ficha de solución -->
+  <div class="ficha-detalle">
+    <!-- LEYENDA -->
+<div id="leyenda" class="ficha-contenido" role="group" aria-label="Elige periodo">
+  <div class="leyenda-row">
+    <button class="leyenda-item" data-hex="#5ca8d6">
+      <span class="punto" style="background:#5ca8d6"></span>
+      <span class="leyenda-txt">Edad Media y Renacimiento (hasta 1500)</span>
+      <span class="info-btn" role="button" tabindex="0" aria-controls="info-1" aria-expanded="false">ⓘ</span>
+    </button>
+    <div id="info-1" class="info-panel hidden"></div>
+  </div>
+
+  <div class="leyenda-row">
+    <button class="leyenda-item" data-hex="#f9c623">
+      <span class="punto" style="background:#f9c623"></span>
+      <span class="leyenda-txt">Renacimiento y Barroco temprano (hasta 1640)</span>
+      <span class="info-btn" role="button" tabindex="0" aria-controls="info-2" aria-expanded="false">ⓘ</span>
+    </button>
+    <div id="info-2" class="info-panel hidden"></div>
+  </div>
+
+  <div class="leyenda-row">
+    <button class="leyenda-item" data-hex="#e06464">
+      <span class="punto" style="background:#e06464"></span>
+      <span class="leyenda-txt">Barroco tardío (hasta 1750)</span>
+      <span class="info-btn" role="button" tabindex="0" aria-controls="info-3" aria-expanded="false">ⓘ</span>
+    </button>
+    <div id="info-3" class="info-panel hidden"></div>
+  </div>
+
+  <div class="leyenda-row">
+    <button class="leyenda-item" data-hex="#26b98f">
+      <span class="punto" style="background:#26b98f"></span>
+      <span class="leyenda-txt">Periodo clásico-romántico (hasta 1920)</span>
+      <span class="info-btn" role="button" tabindex="0" aria-controls="info-4" aria-expanded="false">ⓘ</span>
+    </button>
+    <div id="info-4" class="info-panel hidden"></div>
+  </div>
+
+  <div class="leyenda-row">
+    <button class="leyenda-item" data-hex="#c87ab0">
+      <span class="punto" style="background:#c87ab0"></span>
+      <span class="leyenda-txt">Siglos XX y XXI</span>
+      <span class="info-btn" role="button" tabindex="0" aria-controls="info-5" aria-expanded="false">ⓘ</span>
+    </button>
+    <div id="info-5" class="info-panel hidden"></div>
+  </div>
+
+  <!-- Botón Pista (solo Solitario) -->
+  <div id="pista-wrap" class="pista-wrap hidden">
+    <button id="btnPista" type="button" class="btn-pista">💡 Pista</button>
+    <div id="pistaBox" class="pista-box hidden"></div>
+  </div>
+</div>
+
+    <!-- FICHA (oculta hasta responder / o tras pulsar Solución en Mesa) -->
+    <div id="detalles" class="invisible ficha-contenido">
+      <div class="ficha-imagen">
+        <img id="imagen" class="hidden" alt=""/>
+      </div>
+      <div class="ficha-texto">
+        <div class="anio" id="anio"></div>
+        <div id="descripcion"></div>
+        <p id="texto-extra" class="hidden"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles de audio -->
+  <div id="audio-container"></div>
+
+  <!-- Botón solución (solo Mesa) -->
+  <div id="botonSolucion">
+    <button onclick="mostrarSolucion()" id="btnSolucion" title="Atajo: Enter">🎯 Solución</button>
+  </div>
+
+  <!-- Navegación -->
+  <div id="botones">
+    <button onclick="anterior()" id="btnAnterior" title="Atajo: ← (flecha izquierda)">⬅ Anterior</button>
+    <button onclick="siguiente()" id="btnSiguiente" title="Atajo: → (flecha derecha)">Siguiente ➡</button>
+  </div>
+
+  <!-- Final -->
+  <div id="reinicio" class="hidden">
+    <p>Ha terminado la selección de obras.</p>
+    <p><strong>Recarga manualmente la página para empezar una nueva sesión.</strong></p>
+  </div>
+</div>
+
+<!-- Botón fijo inferior -->
+<div id="boton-reglas-global" onclick="abrirReglas()">📖 Reglas del juego</div>
+
+<!-- Modal de información de periodo -->
+<div id="modalPeriodos" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3 id="modalTitulo">Periodo</h3>
+      <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-color"></div>
+      <div class="modal-texto"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
