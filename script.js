@@ -223,6 +223,7 @@ function toggleInfoPanel(rowEl, text) {
 }
 
 /* =================== Pista =================== */
+/* =================== Pista =================== */
 function togglePista(e) {
   if (e) e.stopPropagation();
   const wrap = document.getElementById("pista-wrap");
@@ -233,7 +234,7 @@ function togglePista(e) {
 
   if (box.classList.contains("hidden")) {
     // Mostrar pista
-    box.textContent = txt || "—";
+    box.innerHTML = txt || "—";
     wrap.classList.remove("hidden");
     // Fuerza layout centrado aunque algún estilo lo pise
     wrap.style.display = "flex";
@@ -246,7 +247,7 @@ function togglePista(e) {
     // Ocultar pista
     box.classList.add("hidden");
     box.style.display = "none";
-    box.textContent = "";
+    box.innerHTML = "";
     // Mantén el contenedor visible y centrado para el botón
     wrap.classList.remove("hidden");
     wrap.style.display = "flex";
@@ -468,19 +469,29 @@ function prepararAudio(url) {
 }
 
 /* =================== Ficha =================== */
+/* =================== Ficha =================== */
 function rellenarFicha(item) {
   document.getElementById("anio").textContent = item.año || "";
-  document.getElementById("descripcion").innerHTML = `<strong>${item.autor || ""}</strong><br>${item.obra || ""}`;
+  document.getElementById("descripcion").innerHTML =
+    `<strong>${item.autor || ""}</strong><br>${item.obra || ""}`;
 
   const img = document.getElementById("imagen");
   img.classList.add("hidden");
   img.removeAttribute("src"); img.alt = "";
   img.onload = () => img.classList.remove("hidden");
-  if (item.imagen && item.imagen.trim() !== "") { img.src = item.imagen; img.alt = item.obra || ""; }
+  if (item.imagen && item.imagen.trim() !== "") {
+    img.src = item.imagen;
+    img.alt = item.obra || "";
+  }
 
   const textoExtra = document.getElementById("texto-extra");
-  if (item.texto && item.texto.trim() !== "") { textoExtra.textContent = item.texto; textoExtra.classList.remove("hidden"); }
-  else { textoExtra.textContent = ""; textoExtra.classList.add("hidden"); }
+  if (item.texto && item.texto.trim() !== "") {
+    textoExtra.innerHTML = item.texto; // permite <b>, <i>, <strong>, <em>, <br>, etc.
+    textoExtra.classList.remove("hidden");
+  } else {
+    textoExtra.innerHTML = "";
+    textoExtra.classList.add("hidden");
+  }
 
   document.getElementById("botones").style.display = "flex";
 }
