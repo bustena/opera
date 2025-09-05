@@ -213,7 +213,7 @@ function toggleInfoPanel(rowEl, text) {
   closeAllInfoPanels();
 
   if (!isOpen) {
-    panel.textContent = text || "—";
+    panel.innerHTML = (text && text.trim()) ? text : "—"; // <-- permite <b>, <i>, <br>, etc.
     panel.classList.remove("hidden");
     infoBtn.setAttribute("aria-expanded", "true");
   } else {
